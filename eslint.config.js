@@ -16,15 +16,16 @@ export default tseslint.config(
       prettierConfig,
     ],
     files: ["**/*.{ts,tsx}"],
+    ignores: ["src/openapi.d.ts"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
         project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname
-      }
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
-    settings: { react: {version: "18.3"} },
+    settings: { react: { version: "18.3" } },
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,

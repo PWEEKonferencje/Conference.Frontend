@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: DevPassword123
+      POSTGRES_DB: ConferenceDb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  migration:
+    image: ghcr.io/pweekonferencje/conference.backend:development
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=postgres;Username=dev;Password=DevPassword123;Database=ConferenceDb;"
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
