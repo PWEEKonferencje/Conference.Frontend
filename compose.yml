@@ -19,8 +19,16 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Server=postgres;Username=dev;Password=DevPassword123;Database=ConferenceDb;"
+      Database:AutoMigrate: true
     env_file:
       - .env
+
+  adminer:
+    depends_on:
+      - postgres
+    image: adminer
+    ports:
+      - 8090:8080
 
 volumes:
   postgres_data:
