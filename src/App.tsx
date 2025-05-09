@@ -5,11 +5,17 @@ import RootPage from "./routes/root.page";
 import { APP_ROUTES } from "./routes/routes.enum";
 import SignInPage from "./routes/sign-in.page";
 import OAuthHandlerPage from "./routes/oauth-handler.page";
-import DashboardPage from "./routes/dashboard.page";
+import DashboardPage from "./routes/dashboard/dashboard.page";
 import SetupPage from "./routes/setup/setup.page";
 import SetupEmailPage from "./routes/setup/setup-email.page";
 import SetupOrcidPage from "./routes/setup/setup-orcid.page";
 import SetupProfilePage from "./routes/setup/setup-profile.page";
+import ConferenceCreatePage from "./routes/dashboard/conference/create.page";
+import ConferenceListPage from "./routes/dashboard/conference/list.page";
+import ConferenceViewPage from "./routes/dashboard/conference/view.page";
+import NotFoundPage from "./routes/not-found.page";
+import ConferencePaperViewPage from "./routes/dashboard/conference/view/paper/view.page";
+import InvitationPage from "./routes/invitation.page";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,8 +53,34 @@ function App() {
       Component: OAuthHandlerPage,
     },
     {
-      path: APP_ROUTES.DASHBOARD,
+      path: APP_ROUTES.DASHBOARD.ROOT,
       Component: DashboardPage,
+      children: [
+        {
+          path: APP_ROUTES.DASHBOARD.CONFERENCE.CREATE,
+          Component: ConferenceCreatePage,
+        },
+        {
+          path: APP_ROUTES.DASHBOARD.CONFERENCE.LIST,
+          Component: ConferenceListPage,
+        },
+        {
+          path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.ROOT,
+          Component: ConferenceViewPage,
+        },
+        {
+          path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.PAPER.ROOT,
+          Component: ConferencePaperViewPage,
+        },
+      ],
+    },
+    {
+      path: APP_ROUTES.INVITATION,
+      Component: InvitationPage,
+    },
+    {
+      path: "*",
+      Component: NotFoundPage,
     },
   ]);
 
