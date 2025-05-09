@@ -76,7 +76,7 @@ function App() {
         {
           path: APP_ROUTES.DASHBOARD.PROFILE,
           Component: ProfilePage,
-        }
+        },
       ],
     },
     {
