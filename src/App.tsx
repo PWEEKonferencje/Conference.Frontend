@@ -16,6 +16,7 @@ import ConferenceViewPage from "./routes/dashboard/conference/view.page";
 import NotFoundPage from "./routes/not-found.page";
 import ConferencePaperViewPage from "./routes/dashboard/conference/view/paper/view.page";
 import InvitationPage from "./routes/invitation.page";
+import ProfilePage from "./routes/dashboard/profile.page";
 
 function App() {
   const router = createBrowserRouter([
@@ -72,6 +73,10 @@ function App() {
           path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.PAPER.ROOT,
           Component: ConferencePaperViewPage,
         },
+        {
+          path: APP_ROUTES.DASHBOARD.PROFILE,
+          Component: ProfilePage,
+        }
       ],
     },
     {

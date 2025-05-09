@@ -23,9 +23,9 @@ interface FormInput {
 export default function ConferenceCreatePage() {
   const form = useForm<FormInput>({});
 
-    const handleSubmit: SubmitHandler<FormInput> = () => {
-      throw new Error("Unimplemented");
-    };
+  const handleSubmit: SubmitHandler<FormInput> = () => {
+    throw new Error("Unimplemented");
+  };
 
   return (
     <div className="px-5 py-6">

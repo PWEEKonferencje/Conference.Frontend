@@ -21,6 +21,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { APP_ROUTES } from "@/routes/routes.enum";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -69,9 +70,11 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                Account
+              <DropdownMenuItem asChild>
+                <a href={APP_ROUTES.DASHBOARD.PROFILE}>
+                  <UserCircleIcon />
+                  Account
+                </a>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCardIcon />

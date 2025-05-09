@@ -20,6 +20,7 @@ export const APP_ROUTES = {
         },
       },
     },
+    PROFILE: "/dashboard/profile",
   },
   INVITATION: "/invitation",
 } as const;

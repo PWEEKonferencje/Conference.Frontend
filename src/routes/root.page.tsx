@@ -12,7 +12,7 @@ export default function RootPage() {
     if (isSetupNeeded) {
       void navigate(APP_ROUTES.SETUP.ROOT);
     } else if (isAuthenticated) {
-      void navigate(APP_ROUTES.DASHBOARD);
+      void navigate(APP_ROUTES.DASHBOARD.ROOT);
     } else {
       void navigate(APP_ROUTES.SIGN_IN);
     }
