@@ -12,6 +12,7 @@ import { useAuthStore } from "@/lib/auth/auth.store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "../routes.enum";
+import { MoveRightIcon } from "lucide-react";
 
 export default function SetupEmailPage() {
   const navigate = useNavigate();
@@ -26,19 +27,23 @@ export default function SetupEmailPage() {
   }, [navigate, isEmailProvided]);
 
   return (
-    <Card className="w-[370px]">
-      <CardHeader>
-        <CardTitle>Email</CardTitle>
-        <CardDescription>
-          This step is mandatory to create an account on platform
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Input type="email" />
-      </CardContent>
-      <CardFooter>
-        <Button>Proceed</Button>
-      </CardFooter>
-    </Card>
+    <div className="flex justify-center items-center h-screen px-4">
+      <Card className="w-[520px]">
+        <CardHeader>
+          <CardTitle>Email</CardTitle>
+          <CardDescription>
+            This step is mandatory to create an account on platform
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Input type="email" />
+        </CardContent>
+        <CardFooter className="flex justify-end gap-x-[8px]">
+          <Button type="submit">
+            Proceed <MoveRightIcon />
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
