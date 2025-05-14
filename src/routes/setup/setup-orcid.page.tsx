@@ -72,7 +72,6 @@ export default function SetupOrcidPage() {
           <Form {...form}>
             <form
               onSubmit={(e) => {
-                e.preventDefault();
                 void form.handleSubmit(handleProceed)(e);
               }}
               className={cn("flex flex-col gap-y-[16px]")}

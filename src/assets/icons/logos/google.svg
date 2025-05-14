@@ -1,14 +1,9 @@
-import * as React from "react";
-
-export function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
     <svg
       viewBox="0 0 24 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
-      <g clipPath="url(#clip0_4294_541)">
+      <g clip-path="url(#clip0_4294_541)">
         <path
           d="M23.9886 12.7245C23.9886 11.7413 23.9069 11.0237 23.7302 10.2796H12.2391V14.7176H18.9841C18.8482 15.8205 18.1138 17.4815 16.4819 18.5976L16.459 18.7461L20.0923 21.4963L20.344 21.5209C22.6558 19.4347 23.9886 16.3653 23.9886 12.7245Z"
           fill="#4285F4"
@@ -37,5 +32,3 @@ export function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
         </clipPath>
       </defs>
     </svg>
-  );
-}

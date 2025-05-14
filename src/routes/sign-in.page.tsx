@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/card";
 import { APP_ROUTES } from "./routes.enum";
 import { cn } from "@/lib/utils";
-import { GithubIcon } from "@/components/ui/icons/github-icon";
-import { GoogleIcon } from "@/components/ui/icons/google-icon";
-import { MicrosoftIcon } from "@/components/ui/icons/microsoft-icon";
+// import GoogleIcon from "@/assets/icons/logos/google.svg";
+// import MicrosoftIcon from "@/assets/icons/logos/microsoft.svg";
+import GithubIcon from "@/assets/icons/logos/github.svg?react";
 
 export default function SignInPage() {
   const handleSignIn = (provider: string) => {
@@ -34,18 +34,18 @@ export default function SignInPage() {
             variant="outline"
             className={cn("border-[#747775] rounded-[4px]")}
           >
-            <div className={cn("flex items-center gap-x-[8px] min-w-[200px]")}>
-              <GithubIcon />
+            <div className={cn("flex items-center gap-x-[8px]")}>
+              <GithubIcon className="w-6 h-6" />
               Sign in with GitHub
             </div>
           </Button>
-          <Button
+          {/* <Button
             onClick={() => handleSignIn("Google")}
             variant="outline"
             className={cn("border-[#747775] rounded-[4px]")}
           >
-            <div className={cn("flex items-center gap-x-[8px] min-w-[200px]")}>
-              <GoogleIcon />
+            <div className={cn("flex items-center gap-x-[8px]")}>
+              <GoogleIcon className="w-6 h-6" />
               Sign in with Google
             </div>
           </Button>
@@ -54,11 +54,11 @@ export default function SignInPage() {
             variant="outline"
             className={cn("border-[#747775] rounded-[4px]")}
           >
-            <div className={cn("flex items-center gap-x-[8px] min-w-[200px]")}>
-              <MicrosoftIcon />
+            <div className={cn("flex items-center gap-x-[8px]")}>
+              <MicrosoftIcon className="w-6 h-6" />
               Sign in with Microsoft
             </div>
-          </Button>
+          </Button> */}
         </CardContent>
       </Card>
     </div>
