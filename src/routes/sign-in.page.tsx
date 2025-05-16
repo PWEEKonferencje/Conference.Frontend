@@ -21,7 +21,7 @@ export default function SignInPage() {
 
   return (
     <div className="flex justify-center items-center h-screen px-4">
-      <Card className={cn("w-[520px]")}>
+      <Card className="max-w-[520px] w-full">
         <CardHeader>
           <CardTitle>Sign up or log in</CardTitle>
           <CardDescription>

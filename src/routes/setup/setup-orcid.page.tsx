@@ -61,11 +61,11 @@ export default function SetupOrcidPage() {
 
   return (
     <div className="flex justify-center items-center h-screen px-4">
-      <Card className="w-[520px]">
+      <Card className="max-w-[320px] w-full">
         <CardHeader>
-          <CardTitle>Provide your ORCID iD</CardTitle>
+          <CardTitle className="text-2xl">Provide your ORCID iD</CardTitle>
           <CardDescription>
-            This step is <u>not</u> mandatory to create an account on platform
+            This step is <u>not mandatory</u> to create an account on platform
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -74,7 +74,7 @@ export default function SetupOrcidPage() {
               onSubmit={(e) => {
                 void form.handleSubmit(handleProceed)(e);
               }}
-              className={cn("flex flex-col gap-y-[16px]")}
+              className={cn("flex flex-col gap-6")}
             >
               <FormField
                 control={form.control}

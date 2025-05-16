@@ -1,88 +1,92 @@
-import * as React from "react";
 import { Input } from "../../input";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface SegmentedInputProps {
-  length?: number; // number of segments, default 4
-  segmentLength?: number; // characters per segment, default 4
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  className?: string;
 }
 
 export function SegmentedInput({
-  length = 4,
-  segmentLength = 4,
   value,
   onChange,
-  placeholder = "0000",
-  inputProps = {},
+  placeholder = "0",
+  className,
 }: SegmentedInputProps) {
-  const refs = React.useRef<(HTMLInputElement | null)[]>([]);
+  const [segments, setSegments] = useState<string[]>(["", "", "", ""]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Split value into segments
-  const segments: string[] = [];
-  for (let i = 0; i < length; i++) {
-    segments.push(value.slice(i * segmentLength, (i + 1) * segmentLength));
-  }
+  useEffect(() => {
+    // Split the value into segments of 4 digits
+    const newSegments = value.match(/.{1,4}/g) || ["", "", "", ""];
+    setSegments([
+      newSegments[0] || "",
+      newSegments[1] || "",
+      newSegments[2] || "",
+      newSegments[3] || "",
+    ]);
+  }, [value]);
 
-  // Handle input change
-  const handleChange = (i: number, val: string) => {
-    const newSegments = [...segments];
-    newSegments[i] = val.slice(0, segmentLength);
-    const newValue = newSegments.join("");
-    onChange(newValue);
+  const handleSegmentChange = useCallback(
+    (index: number, inputValue: string) => {
+      // Only allow digits and limit to 4 characters
+      const sanitizedValue = inputValue.replace(/[^\d]/g, "").slice(0, 4);
 
-    // Auto-focus next
-    if (val.length === segmentLength && i < length - 1) {
-      refs.current[i + 1]?.focus();
-    }
-  };
+      const newSegments = [...segments];
+      newSegments[index] = sanitizedValue;
 
-  // Handle backspace to move focus
-  const handleKeyDown = (
-    i: number,
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === "Backspace" && segments[i] === "" && i > 0) {
-      refs.current[i - 1]?.focus();
-    }
-  };
+      // Join segments and update parent
+      const combinedValue = newSegments.join("");
+      onChange(combinedValue);
 
-  // Handle paste
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
-    const pasted = e.clipboardData.getData("Text").replace(/[^a-zA-Z0-9]/g, "");
-    if (pasted.length === length * segmentLength) {
-      onChange(pasted);
-      e.preventDefault();
-      refs.current[length - 1]?.focus();
-    }
-  };
+      // If we've reached 4 digits and there's a next input, focus it
+      if (sanitizedValue.length === 4 && index < segments.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    },
+    [segments, onChange],
+  );
+
+  const handleKeyDown = useCallback(
+    (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Backspace" && segments[index] === "" && index > 0) {
+        e.preventDefault();
+        inputRefs.current[index - 1]?.focus();
+      }
+    },
+    [segments],
+  );
 
   return (
-    <div className="flex items-center gap-2">
-      {segments.map((seg, i) => (
-        <React.Fragment key={i}>
-          <Input
-            ref={(el) => (refs.current[i] = el)}
-            type="text"
-            inputMode="numeric"
-            maxLength={segmentLength}
-            className="w-16 text-center border rounded-md py-2 px-0 text-lg font-mono text-muted-foreground bg-transparent focus:outline-none focus:ring-2 focus:ring-primary transition"
-            value={seg}
-            onChange={(e) => handleChange(i, e.target.value)}
-            onKeyDown={(e) => handleKeyDown(i, e)}
-            onPaste={handlePaste}
-            placeholder={placeholder}
-            pattern="[0-9X]*"
-            required
-            {...inputProps}
-          />
-          {i < length - 1 && (
-            <span className="text-xl text-muted-foreground select-none">-</span>
-          )}
-        </React.Fragment>
-      ))}
+    <div className="flex justify-center items-center gap-2">
+      <div
+        ref={containerRef}
+        className={`relative w-fit flex items-center justify-center gap-0 ${className || ""}`}
+      >
+        {segments.map((segment, index) => (
+          <div key={index} className="flex items-center justify-center">
+            <Input
+              ref={(el) => (inputRefs.current[index] = el)}
+              className="max-w-12 w-full text-center p-1"
+              value={segment}
+              onChange={(e) => handleSegmentChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(index, e)}
+              placeholder={placeholder}
+              maxLength={4}
+              type="text"
+              inputMode="numeric"
+              pattern="\d*"
+            />
+            {index < segments.length - 1 && (
+              <span className="mx-1 select-none [&::selection]:bg-transparent [&::selection]:text-transparent">
+                -
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

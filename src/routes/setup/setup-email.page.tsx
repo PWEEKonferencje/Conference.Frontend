@@ -28,9 +28,9 @@ export default function SetupEmailPage() {
 
   return (
     <div className="flex justify-center items-center h-screen px-4">
-      <Card className="w-[520px]">
+      <Card className="max-w-[320px] w-full">
         <CardHeader>
-          <CardTitle>Email</CardTitle>
+          <CardTitle className="text-2xl">Email</CardTitle>
           <CardDescription>
             This step is mandatory to create an account on platform
           </CardDescription>
