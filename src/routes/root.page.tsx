@@ -10,7 +10,7 @@ export default function RootPage() {
 
   useEffect(() => {
     if (isSetupNeeded) {
-      void navigate(APP_ROUTES.SETUP.ROOT);
+      void navigate(APP_ROUTES.SETUP.PROFILE);
     } else if (isAuthenticated) {
       void navigate(APP_ROUTES.DASHBOARD.ROOT);
     } else {

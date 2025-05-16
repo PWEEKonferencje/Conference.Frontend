@@ -73,7 +73,7 @@ export default function SetupProfilePage() {
 
   return (
     <PaneFull className="flex flex-row justify-center items-center">
-      <Card className="w-[524px]">
+      <Card className="max-w-[520px] w-full">
         <CardHeader>
           <CardTitle className="text-2xl">Setup Your profile</CardTitle>
           <CardDescription>
