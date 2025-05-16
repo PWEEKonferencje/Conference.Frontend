@@ -20,12 +20,12 @@ export function SegmentedInput({
 
   useEffect(() => {
     // Split the value into segments of 4 digits
-    const newSegments = value.match(/.{1,4}/g) || ["", "", "", ""];
+    const newSegments = value.match(/.{1,4}/g) ?? ["", "", "", ""];
     setSegments([
-      newSegments[0] || "",
-      newSegments[1] || "",
-      newSegments[2] || "",
-      newSegments[3] || "",
+      newSegments[0] ?? "",
+      newSegments[1] ?? "",
+      newSegments[2] ?? "",
+      newSegments[3] ?? "",
     ]);
   }, [value]);
 
@@ -63,7 +63,7 @@ export function SegmentedInput({
     <div className="flex justify-center items-center gap-2">
       <div
         ref={containerRef}
-        className={`relative w-fit flex items-center justify-center gap-0 ${className || ""}`}
+        className={`relative w-fit flex items-center justify-center gap-0 ${className ?? ""}`}
       >
         {segments.map((segment, index) => (
           <div key={index} className="flex items-center justify-center">
