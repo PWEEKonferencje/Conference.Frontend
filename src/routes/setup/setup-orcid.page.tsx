@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "../routes.enum";
 import { useEffect } from "react";
@@ -20,6 +19,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+import { MoveRightIcon } from "lucide-react";
+import { SegmentedInput } from "@/components/ui/app/auth/SegmentedInput";
 
 interface FormInput {
   orcidId: string;
@@ -58,32 +60,50 @@ export default function SetupOrcidPage() {
   };
 
   return (
-    <Card className="w-[370px]">
-      <CardHeader>
-        <CardTitle>Provide your ORCID iD</CardTitle>
-        <CardDescription>
-          This step is not mandatory to create an account on platform
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={(e) => void form.handleSubmit(handleProceed)(e)}>
-            <FormField
-              control={form.control}
-              name="orcidId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input placeholder="Orcid id" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Proceed</Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+    <div className="flex justify-center items-center h-screen px-4">
+      <Card className="max-w-[320px] w-full">
+        <CardHeader>
+          <CardTitle className="text-2xl">Provide your ORCID iD</CardTitle>
+          <CardDescription>
+            This step is <u>not mandatory</u> to create an account on platform
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form
+              onSubmit={(e) => {
+                void form.handleSubmit(handleProceed)(e);
+              }}
+              className={cn("flex flex-col gap-6")}
+            >
+              <FormField
+                control={form.control}
+                name="orcidId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <SegmentedInput
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="0000"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <nav className={cn("flex justify-end gap-x-[8px]")}>
+                <Button type="button" variant="secondary">
+                  Skip
+                </Button>
+                <Button type="submit">
+                  Proceed <MoveRightIcon />
+                </Button>
+              </nav>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
