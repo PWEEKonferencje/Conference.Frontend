@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { APP_ROUTES } from "../routes.enum";
 import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/auth.store";
@@ -93,9 +93,11 @@ export default function SetupOrcidPage() {
                 )}
               />
               <nav className={cn("flex justify-end gap-x-[8px]")}>
-                <Button type="button" variant="secondary">
-                  Skip
-                </Button>
+                <Link to={APP_ROUTES.SETUP.PROFILE}>
+                  <Button type="button" variant="secondary">
+                    Skip
+                  </Button>
+                </Link>
                 <Button type="submit">
                   Proceed <MoveRightIcon />
                 </Button>

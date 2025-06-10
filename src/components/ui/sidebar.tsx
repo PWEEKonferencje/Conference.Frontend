@@ -346,7 +346,10 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn(
+        "border-sidebar-border mt-auto flex shrink-0 flex-col gap-2 border-t p-2",
+        className,
+      )}
       {...props}
     />
   );
@@ -720,5 +723,6 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  // eslint-disable-next-line react-refresh/only-export-components
   useSidebar,
 };

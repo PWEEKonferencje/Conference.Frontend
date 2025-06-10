@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import "./App.css";
 import { AuthStoreProvider } from "./lib/auth/auth.store";
+import { ThemeProvider } from "./context/theme-provider";
+import { Layout } from "@/components/ui/app/layout";
 import RootPage from "./routes/root.page";
 import { APP_ROUTES } from "./routes/routes.enum";
 import SignInPage from "./routes/sign-in.page";
@@ -17,12 +19,23 @@ import NotFoundPage from "./routes/not-found.page";
 import ConferencePaperViewPage from "./routes/dashboard/conference/view/paper/view.page";
 import InvitationPage from "./routes/invitation.page";
 import ProfilePage from "./routes/dashboard/profile.page";
+import IndexPage from "./routes/index.page";
+import SetupConfirmPage from "./routes/setup/setup-confirm.page";
+import AboutPage from "./routes/about.page";
 
 function App() {
   const router = createBrowserRouter([
     {
+      path: APP_ROUTES.INDEX,
+      Component: IndexPage,
+    },
+    {
       path: APP_ROUTES.ROOT,
       Component: RootPage,
+    },
+    {
+      path: APP_ROUTES.ABOUT,
+      Component: AboutPage,
     },
     {
       path: APP_ROUTES.SETUP.ROOT,
@@ -43,6 +56,10 @@ function App() {
           path: APP_ROUTES.SETUP.PROFILE,
           Component: SetupProfilePage,
         },
+        {
+          path: APP_ROUTES.SETUP.CONFIRM,
+          Component: SetupConfirmPage,
+        },
       ],
     },
     {
@@ -55,7 +72,11 @@ function App() {
     },
     {
       path: APP_ROUTES.DASHBOARD.ROOT,
-      Component: DashboardPage,
+      element: (
+        <Layout>
+          <DashboardPage />
+        </Layout>
+      ),
       children: [
         {
           path: APP_ROUTES.DASHBOARD.CONFERENCE.CREATE,
@@ -90,9 +111,11 @@ function App() {
   ]);
 
   return (
-    <AuthStoreProvider>
-      <RouterProvider router={router} />
-    </AuthStoreProvider>
+    <ThemeProvider defaultTheme="system" storageKey="ui-theme">
+      <AuthStoreProvider>
+        <RouterProvider router={router} />
+      </AuthStoreProvider>
+    </ThemeProvider>
   );
 }
 

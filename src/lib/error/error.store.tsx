@@ -10,7 +10,7 @@ const ErrorStoreContext = createContext<StoreApi<ErrorStore> | undefined>(
   undefined,
 );
 
-const ErrorStoreProvider = ({ children }: { children: ReactNode }) => {
+export const ErrorStoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<StoreApi<ErrorStore>>();
   storeRef.current ??= createStore<ErrorStore>()((set) => ({
     error: undefined,
@@ -27,12 +27,11 @@ const ErrorStoreProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-function useErrorStore<T>(selector: (state: ErrorStore) => T) {
+// eslint-disable-next-line react-refresh/only-export-components
+export function useErrorStore<T>(selector: (state: ErrorStore) => T) {
   const store = useContext(ErrorStoreContext);
   if (!store) {
     throw new Error("Missing ErrorStoreProvider");
   }
   return useStore(store, selector);
 }
-
-export { ErrorStoreProvider, useErrorStore };

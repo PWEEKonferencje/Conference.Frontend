@@ -1,10 +1,13 @@
 export const APP_ROUTES = {
-  ROOT: "/",
+  INDEX: "/",
+  ROOT: "/root",
+  ABOUT: "/about",
   SETUP: {
     ROOT: "/setup",
     EMAIL: "/setup/email",
     ORCID: "/setup/orcid",
     PROFILE: "/setup/profile",
+    CONFIRM: "/setup/confirm",
   },
   SIGN_IN: "/sign-in",
   OAUTH_HANDLER: "/oauth/token",

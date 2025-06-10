@@ -7,11 +7,15 @@ export default function SetupPage() {
   const navigate = useNavigate();
   const user = useAccountDetails();
 
+  console.log(user);
+
   useEffect(() => {
     if (user?.isEmailProvided === false) {
       void navigate(APP_ROUTES.SETUP.EMAIL);
     } else if (user?.isAccountSetupFinished === false) {
       void navigate(APP_ROUTES.SETUP.ORCID);
+    } else if (user?.isAccountSetupFinished === true) {
+      void navigate(APP_ROUTES.DASHBOARD.ROOT);
     } else {
       void navigate(APP_ROUTES.ROOT);
     }
