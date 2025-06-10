@@ -8,7 +8,7 @@ import { useNotifications } from "@/context/notification-context";
 import { formatDistanceToNow } from "date-fns";
 import { X, CheckCircle, AlertTriangle, AlertCircle, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "react-router";
 import { cn } from "@/lib/utils";
 
 interface NotificationItemProps {
@@ -103,7 +103,7 @@ export function NotificationItem({
 
           {notification.link && (
             <Link
-              href={notification.link.href}
+              to={notification.link.href}
               className="text-sm text-primary hover:underline mt-2 inline-block"
             >
               {notification.link.text}

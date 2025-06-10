@@ -26,7 +26,7 @@ export default function SetupEmailPage() {
   const [errors, setErrors] = useState<{ email?: string }>({});
   const navigate = useNavigate();
   const isEmailProvided = useAuthStore(
-    (s) => s.accountDetails?.isEmailProvided,
+    (s) => s.session?.details.isEmailProvided,
   );
 
   useEffect(() => {

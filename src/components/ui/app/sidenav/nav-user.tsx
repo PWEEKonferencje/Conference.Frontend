@@ -22,6 +22,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { APP_ROUTES } from "@/routes/routes.enum";
+import { Link } from "react-router";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -86,9 +87,11 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOutIcon />
-              Log out
+            <DropdownMenuItem asChild>
+              <Link to={APP_ROUTES.SIGN_OUT}>
+                <LogOutIcon />
+                Log out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

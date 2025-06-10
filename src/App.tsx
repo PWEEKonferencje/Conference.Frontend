@@ -22,6 +22,9 @@ import ProfilePage from "./routes/dashboard/profile.page";
 import IndexPage from "./routes/index.page";
 import SetupConfirmPage from "./routes/setup/setup-confirm.page";
 import AboutPage from "./routes/about.page";
+import AuthEnforceLayout from "./routes/auth-enforce.layout";
+import SignOutPage from "./routes/sign-out.page";
+import SetupEnforceLayout from "./routes/setup-enforce.layout";
 
 function App() {
   const router = createBrowserRouter([
@@ -67,6 +70,10 @@ function App() {
       Component: SignInPage,
     },
     {
+      path: APP_ROUTES.SIGN_OUT,
+      Component: SignOutPage,
+    },
+    {
       path: APP_ROUTES.OAUTH_HANDLER,
       Component: OAuthHandlerPage,
     },
@@ -77,32 +84,65 @@ function App() {
           <DashboardPage />
         </Layout>
       ),
+      Component: AuthEnforceLayout,
       children: [
         {
-          path: APP_ROUTES.DASHBOARD.CONFERENCE.CREATE,
-          Component: ConferenceCreatePage,
+          Component: SetupEnforceLayout,
+          children: [
+            {
+              path: APP_ROUTES.SETUP.ROOT,
+              children: [
+                {
+                  index: true,
+                  Component: SetupPage,
+                },
+                {
+                  path: APP_ROUTES.SETUP.EMAIL,
+                  Component: SetupEmailPage,
+                },
+                {
+                  path: APP_ROUTES.SETUP.ORCID,
+                  Component: SetupOrcidPage,
+                },
+                {
+                  path: APP_ROUTES.SETUP.PROFILE,
+                  Component: SetupProfilePage,
+                },
+              ],
+            },
+          ],
         },
         {
-          path: APP_ROUTES.DASHBOARD.CONFERENCE.LIST,
-          Component: ConferenceListPage,
+          path: APP_ROUTES.DASHBOARD.ROOT,
+          Component: DashboardPage,
+          children: [
+            {
+              path: APP_ROUTES.DASHBOARD.CONFERENCE.CREATE,
+              Component: ConferenceCreatePage,
+            },
+            {
+              path: APP_ROUTES.DASHBOARD.CONFERENCE.LIST,
+              Component: ConferenceListPage,
+            },
+            {
+              path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.ROOT,
+              Component: ConferenceViewPage,
+            },
+            {
+              path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.PAPER.ROOT,
+              Component: ConferencePaperViewPage,
+            },
+            {
+              path: APP_ROUTES.DASHBOARD.PROFILE,
+              Component: ProfilePage,
+            },
+          ],
         },
         {
-          path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.ROOT,
-          Component: ConferenceViewPage,
-        },
-        {
-          path: APP_ROUTES.DASHBOARD.CONFERENCE.VIEW.PAPER.ROOT,
-          Component: ConferencePaperViewPage,
-        },
-        {
-          path: APP_ROUTES.DASHBOARD.PROFILE,
-          Component: ProfilePage,
+          path: APP_ROUTES.INVITATION,
+          Component: InvitationPage,
         },
       ],
-    },
-    {
-      path: APP_ROUTES.INVITATION,
-      Component: InvitationPage,
     },
     {
       path: "*",

@@ -43,6 +43,7 @@ import { APP_ROUTES } from "../routes.enum";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useAccountDetails } from "@/lib/auth/hooks";
+import { useAuthStore } from "@/lib/auth/auth.store";
 
 const steps = ["Provider", "Email", "ORCID", "Profile", "Confirm"];
 
@@ -86,6 +87,7 @@ export default function SetupProfilePage() {
     workplace: "",
     position: "",
   });
+  const updateAccountDetails = useAuthStore((s) => s.updateAccountDetails);
 
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
@@ -116,6 +118,11 @@ export default function SetupProfilePage() {
     } finally {
       setLoading(false);
     }
+
+    updateAccountDetails({
+      isAccountSetupFinished: true,
+    });
+    void navigate(APP_ROUTES.ROOT);
   };
 
   const handleAddAffiliation = () => {

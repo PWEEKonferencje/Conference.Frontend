@@ -50,6 +50,7 @@
     "date-fns": "latest",
     "embla-carousel-react": "8.5.1",
     "input-otp": "1.4.1",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.479.0",
     "openapi-fetch": "^0.13.4",
     "react": "18.2.0",

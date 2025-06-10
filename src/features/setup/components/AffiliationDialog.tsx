@@ -65,7 +65,13 @@ export default function AffiliationDialog(props: AffiliationDialogProps) {
         <Plus />
       </DialogTrigger>
       <DialogContent>
-        <form onSubmit={(e) => void form.handleSubmit(handleSave)(e)}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            void form.handleSubmit(handleSave)(e);
+          }}
+        >
           <DialogHeader>
             <DialogTitle>Add affiliation</DialogTitle>
           </DialogHeader>
