@@ -31,20 +31,32 @@ export function SegmentedInput({
 
   const handleSegmentChange = useCallback(
     (index: number, inputValue: string) => {
-      // Only allow digits and limit to 4 characters
-      const sanitizedValue = inputValue.replace(/[^\d]/g, "").slice(0, 4);
-
       const newSegments = [...segments];
-      newSegments[index] = sanitizedValue;
+      const inputParts = inputValue.toUpperCase().split(/-+/);
+      let i = index;
+      for (; i < Math.min(index + inputParts.length, segments.length); i++) {
+        let current = inputParts[i - index];
+        current = current ?? "";
+        const rest = current.slice(4);
+        if (rest.length > 0 && i < segments.length - 1) {
+          inputParts[i - index + 1] = rest + (inputParts[i - index + 1] ?? "");
+        }
+
+        const replaceRegex = i < 3 ? /[^\d]/g : /[^\d|X]/g;
+        const sanitizedValue = current.replace(replaceRegex, "").slice(0, 4);
+
+        newSegments[i] = sanitizedValue;
+      }
+
+      if (i === segments.length) {
+        inputRefs.current[i - 1]?.focus();
+      } else if (newSegments[i - 1]?.length === 4 && i < segments.length - 1) {
+        inputRefs.current[i]?.focus();
+      }
 
       // Join segments and update parent
       const combinedValue = newSegments.join("");
       onChange(combinedValue);
-
-      // If we've reached 4 digits and there's a next input, focus it
-      if (sanitizedValue.length === 4 && index < segments.length - 1) {
-        inputRefs.current[index + 1]?.focus();
-      }
     },
     [segments, onChange],
   );
@@ -74,10 +86,9 @@ export function SegmentedInput({
               onChange={(e) => handleSegmentChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               placeholder={placeholder}
-              maxLength={4}
               type="text"
               inputMode="numeric"
-              pattern="\d*"
+              pattern=".{4,}"
             />
             {index < segments.length - 1 && (
               <span className="mx-1 select-none [&::selection]:bg-transparent [&::selection]:text-transparent">

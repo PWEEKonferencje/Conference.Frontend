@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "../routes.enum";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "@/lib/auth/auth.store";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useApiClient } from "@/api-client";
@@ -31,7 +31,7 @@ export default function SetupOrcidPage() {
   const navigate = useNavigate();
   const apiClient = useApiClient();
   const isAccountSetupFinished = useAuthStore(
-    (s) => s.accountDetails?.isAccountSetupFinished,
+    (s) => s.session?.details.isAccountSetupFinished,
   );
 
   useEffect(() => {
@@ -46,6 +46,8 @@ export default function SetupOrcidPage() {
     },
   });
 
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+
   const handleProceed: SubmitHandler<FormInput> = async ({ orcidId }) => {
     console.log(orcidId);
     const { error } = await apiClient.POST("/api/Profile/orcid", {
@@ -55,8 +57,16 @@ export default function SetupOrcidPage() {
     });
 
     if (!error) {
-      return navigate(APP_ROUTES.ROOT);
+      // TODO: set is orcid provided
+
+      return navigate(APP_ROUTES.SETUP.PROFILE);
     }
+
+    setErrorMessages(
+      error.errors
+        ?.map((err) => err.errorMessage)
+        .filter((s) => s !== undefined && s !== null) ?? [],
+    );
   };
 
   return (
@@ -92,6 +102,13 @@ export default function SetupOrcidPage() {
                   </FormItem>
                 )}
               />
+              <div>
+                {errorMessages.map((errorMessage, i) => (
+                  <div key={i} className="text-red-600">
+                    {errorMessage}
+                  </div>
+                ))}
+              </div>
               <nav className={cn("flex justify-end gap-x-[8px]")}>
                 <Button type="button" variant="secondary">
                   Skip

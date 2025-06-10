@@ -7,6 +7,7 @@ export const APP_ROUTES = {
     PROFILE: "/setup/profile",
   },
   SIGN_IN: "/sign-in",
+  SIGN_OUT: "/sign-out",
   OAUTH_HANDLER: "/oauth/token",
   DASHBOARD: {
     ROOT: "/dashboard",

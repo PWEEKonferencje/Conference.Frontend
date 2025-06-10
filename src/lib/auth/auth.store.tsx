@@ -1,17 +1,27 @@
 import { createContext, ReactNode, useContext, useRef } from "react";
 import { createStore, StoreApi, useStore } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { jwtDecode } from "jwt-decode";
 
 interface AuthStoreData {
-  authToken?: string;
-  accountDetails?: {
-    isAccountSetupFinished: boolean;
-    isEmailProvided: boolean;
+  session?: {
+    token: string;
+    details: {
+      isAccountSetupFinished: boolean;
+      isEmailProvided: boolean;
+    };
+    exp: number;
   };
 }
 
 interface AuthStore extends AuthStoreData {
-  init: (data: AuthStoreData) => void;
+  init: (
+    data: Pick<NonNullable<AuthStoreData["session"]>, "token" | "details">,
+  ) => void;
+  clear: () => void;
+  updateAccountDetails: (
+    accountDetails: Partial<NonNullable<AuthStore["session"]>["details"]>,
+  ) => void;
 }
 
 const AuthStoreContext = createContext<StoreApi<AuthStore> | undefined>(
@@ -25,10 +35,49 @@ const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
       (set) => ({
         authToken: undefined,
         accountDetails: undefined,
-        init: (data: AuthStoreData) =>
+        init: (
+          data: Pick<
+            NonNullable<AuthStoreData["session"]>,
+            "token" | "details"
+          >,
+        ) => {
+          const { token, details } = data;
+
+          const { exp } = jwtDecode(token);
+          if (!exp) {
+            throw new Error("jwt exp property is expected - found undefined");
+          }
+
+          console.log(token, details, exp);
+
           set({
-            ...data,
+            session: {
+              token,
+              exp,
+              details,
+            },
+          });
+        },
+        clear: () =>
+          set({
+            session: undefined,
           }),
+        updateAccountDetails: (
+          accountDetails: Partial<NonNullable<AuthStore["session"]>["details"]>,
+        ) =>
+          set((state) => ({
+            session: !state.session
+              ? state.session
+              : {
+                  ...state.session,
+                  details: !state.session.details
+                    ? state.session.details
+                    : {
+                        ...state.session.details,
+                        ...accountDetails,
+                      },
+                },
+          })),
       }),
       {
         name: "auth_store",

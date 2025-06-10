@@ -17,7 +17,7 @@ import { MoveRightIcon } from "lucide-react";
 export default function SetupEmailPage() {
   const navigate = useNavigate();
   const isEmailProvided = useAuthStore(
-    (s) => s.accountDetails?.isEmailProvided,
+    (s) => s.session?.details.isEmailProvided,
   );
 
   useEffect(() => {
