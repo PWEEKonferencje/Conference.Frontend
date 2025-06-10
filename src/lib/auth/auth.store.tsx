@@ -43,7 +43,7 @@ export const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
         ) => {
           const { token, details } = data;
 
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+          // eslint-disable-next-line
           const { exp } = jwtDecode(token);
           if (!exp) {
             throw new Error("jwt exp property is expected - found undefined");
