@@ -19,9 +19,18 @@ export default function OAuthHandlerPage() {
       return;
     }
 
+    console.log(location.pathname, location.search, location.hash);
+
+    const token = location.hash.split("=")[1];
+    console.log(token);
+    if (!token) {
+      void navigate(APP_ROUTES.ROOT, { replace: true });
+      return;
+    }
+
     init({
-      authToken: location.hash.split("=")[1],
-      accountDetails: {
+      token,
+      details: {
         isAccountSetupFinished: toBoolean(
           searchParams.get("isAccountSetupFinished"),
         ),

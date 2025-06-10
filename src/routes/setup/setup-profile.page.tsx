@@ -24,6 +24,7 @@ import AffiliationDialog, {
   AffiliationDialogProps,
 } from "@/features/setup/components/AffiliationDialog";
 import { APP_ROUTES } from "../routes.enum";
+import { useAuthStore } from "@/lib/auth/auth.store";
 
 interface FormInput {
   name: string;
@@ -40,6 +41,7 @@ interface FormInput {
 export default function SetupProfilePage() {
   const navigate = useNavigate();
   const apiClient = useApiClient();
+  const updateAccountDetails = useAuthStore((s) => s.updateAccountDetails);
 
   const form = useForm<FormInput>({
     defaultValues: {
@@ -48,12 +50,20 @@ export default function SetupProfilePage() {
   });
 
   const handleSave: SubmitHandler<FormInput> = async (data) => {
-    await apiClient.POST("/api/Profile", {
+    const { error } = await apiClient.POST("/api/Profile", {
       body: {
         ...data,
       },
     });
 
+    if (error) {
+      // TODO: Error handling
+      throw new Error("");
+    }
+
+    updateAccountDetails({
+      isAccountSetupFinished: true,
+    });
     void navigate(APP_ROUTES.ROOT);
   };
 
