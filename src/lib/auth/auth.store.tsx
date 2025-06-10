@@ -54,6 +54,7 @@ export const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
           set({
             session: {
               token,
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               exp,
               details,
             },

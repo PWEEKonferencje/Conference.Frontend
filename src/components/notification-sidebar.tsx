@@ -1,11 +1,9 @@
-"use client";
-
 import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, AlertTriangle, FileText, Bell } from "lucide-react";
 
-interface NotificationProps {
+export interface NotificationProps {
   id: number;
   type: "success" | "info" | "warning" | "error";
   title: string;
