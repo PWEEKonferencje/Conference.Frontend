@@ -21,7 +21,6 @@ import {
   GraduationCap,
   Microscope,
   BookOpen,
-  FlaskConical,
 } from "lucide-react";
 
 interface RoleNavigationHeaderProps {
@@ -89,8 +88,7 @@ export function RoleNavigationHeader({
         <div className="flex items-center space-x-3">
           <Link to="/dashboard">
             <Button variant="outline" size="sm" className="gap-2">
-              <FlaskConical className="h-4 w-4" />
-              Research Portal
+              Dashboard
             </Button>
           </Link>
 
@@ -136,8 +134,7 @@ export function RoleNavigationHeader({
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem asChild>
                 <Link to="/dashboard" className="flex items-center">
-                  <FlaskConical className="mr-2 h-4 w-4" />
-                  Research Portal
+                  Dashboard
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>

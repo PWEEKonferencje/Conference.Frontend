@@ -43,7 +43,6 @@ export const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
         ) => {
           const { token, details } = data;
 
-          // eslint-disable-next-line
           const { exp } = jwtDecode(token);
           if (!exp) {
             throw new Error("jwt exp property is expected - found undefined");
@@ -54,7 +53,6 @@ export const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
           set({
             session: {
               token,
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               exp,
               details,
             },

@@ -57,12 +57,12 @@ export function SidebarNav({ role, conferenceId }: SidebarNavProps) {
       baseItems.push(
         {
           title: "My Papers",
-          href: `/participant/${conferenceId}/papers`,
+          href: `/participant/${conferenceId}/my-papers`,
           icon: <FileTextIcon className="h-5 w-5" />,
         },
         {
           title: "Submit Paper",
-          href: `/participant/${conferenceId}/submit`,
+          href: `/participant/${conferenceId}/submit-paper`,
           icon: <PlusIcon className="h-5 w-5" />,
         },
         {

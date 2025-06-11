@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "react-router";
 import { ChevronRight } from "lucide-react";
 
 interface BreadcrumbItem {
@@ -22,7 +22,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
             {index > 0 && <ChevronRight className="h-4 w-4 mx-1" />}
             {item.href && !isLast ? (
               <Link
-                href={item.href}
+                to={item.href}
                 className="hover:text-foreground transition-colors"
               >
                 {item.label}

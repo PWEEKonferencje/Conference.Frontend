@@ -6,8 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CirclePlus } from "lucide-react";
+import { useParams } from "react-router";
 
 export default function ConferenceViewPage() {
+  const { conferenceId } = useParams();
+  console.log(conferenceId);
+
   return (
     <div className="px-5 py-4 flex flex-col gap-7">
       <h3 className="text-4xl font-semibold">Interesting Conference 2015</h3>

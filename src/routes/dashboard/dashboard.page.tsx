@@ -29,6 +29,7 @@ import {
   NotificationSidebar,
   type NotificationProps,
 } from "@/components/notification-sidebar";
+import { APP_ROUTES } from "../routes.enum";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("active");
@@ -105,13 +106,13 @@ export default function DashboardPage() {
   const getRoleBadgeColors = (role: string) => {
     switch (role) {
       case "participant":
-        return "bg-blue-500 text-white";
+        return "bg-blue-500 text-white hover:bg-blue-600";
       case "committee":
-        return "bg-green-500 text-white";
+        return "bg-green-500 text-white hover:bg-green-600";
       case "organizer":
-        return "bg-yellow-500 text-white";
+        return "bg-yellow-500 text-white hover:bg-yellow-600";
       case "chairman":
-        return "bg-red-500 text-white";
+        return "bg-red-500 text-white hover:bg-red-600";
       default:
         return "bg-secondary text-secondary-foreground";
     }
@@ -120,13 +121,13 @@ export default function DashboardPage() {
   const getStatusIndicatorColors = (colorKey: string) => {
     switch (colorKey) {
       case "submitted-papers":
-        return "bg-blue-100 text-blue-800 ";
+        return "bg-blue-100 text-blue-800 hover:bg-blue-200";
       case "feedback-received":
-        return "bg-green-100 text-green-800 ";
+        return "bg-green-100 text-green-800 hover:bg-green-200";
       case "no-reviewers":
-        return "bg-amber-100 text-amber-800";
+        return "bg-amber-100 text-amber-800 hover:bg-amber-200";
       case "waiting-status":
-        return "bg-red-100 text-red-800";
+        return "bg-red-100 text-red-800 hover:bg-red-200";
       default:
         return "bg-gray-500 text-white";
     }
@@ -221,7 +222,7 @@ export default function DashboardPage() {
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem asChild>
                   <Link
-                    to="/dashboard/settings/profile"
+                    to={APP_ROUTES.DASHBOARD.PROFILE}
                     className="flex items-center"
                   >
                     <User className="mr-2 h-4 w-4" />
