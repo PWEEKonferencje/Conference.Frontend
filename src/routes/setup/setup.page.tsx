@@ -18,7 +18,7 @@ export default function SetupPage() {
     setSetupInfo({
       isEmailProvided: true,
       isOrcidProvided: false,
-      isAccountSetupFinished: false
+      isAccountSetupFinished: false,
     });
     // apiClient
     //   .GET("/api/Profile/setupinfo")
