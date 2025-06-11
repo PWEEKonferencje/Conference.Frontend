@@ -15,18 +15,23 @@ export default function SetupPage() {
   const [setupInfo, setSetupInfo] = useState<SetupInfo | null>(null);
 
   useEffect(() => {
-    apiClient
-      .GET("/api/Profile/setupinfo")
-      .then(({ data, error }) => {
-        if (error) {
-          throw new Error("Error");
-        }
+    setSetupInfo({
+      isEmailProvided: true,
+      isOrcidProvided: false,
+      isAccountSetupFinished: false
+    });
+    // apiClient
+    //   .GET("/api/Profile/setupinfo")
+    //   .then(({ data, error }) => {
+    //     if (error) {
+    //       throw new Error("Error");
+    //     }
 
-        setSetupInfo(data as SetupInfo);
-      })
-      .catch((err) => {
-        throw err;
-      });
+    //     setSetupInfo(data as SetupInfo);
+    //   })
+    //   .catch((err) => {
+    //     throw err;
+    //   });
   }, [apiClient]);
 
   useEffect(() => {
