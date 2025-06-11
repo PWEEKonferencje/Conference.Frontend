@@ -1,27 +1,50 @@
 export const APP_ROUTES = {
-  ROOT: "/",
+  INDEX: "/",
+  ROOT: "/root",
+  ABOUT: "/about",
   SETUP: {
     ROOT: "/setup",
     EMAIL: "/setup/email",
     ORCID: "/setup/orcid",
     PROFILE: "/setup/profile",
+    CONFIRM: "/setup/confirm",
   },
   SIGN_IN: "/sign-in",
   SIGN_OUT: "/sign-out",
   OAUTH_HANDLER: "/oauth/token",
   DASHBOARD: {
     ROOT: "/dashboard",
+    PROFILE: "/dashboard/profile",
     CONFERENCE: {
       CREATE: "/dashboard/conference/create",
       LIST: "/dashboard/conference/list",
-      VIEW: {
-        ROOT: "/dashboard/conference/view",
-        PAPER: {
-          ROOT: "/dashboard/conference/view/paper",
-        },
-      },
     },
-    PROFILE: "/dashboard/profile",
+  },
+  CHAIRMAN: {
+    ROOT: "/chairman/:conferenceId",
+    DASHBOARD: "/chairman/:conferenceId/dashboard",
+    PAPERS: "/chairman/:conferenceId/papers",
+    PARTICIPANTS: "/chairman/:conferenceId/participants",
+    SCHEDULE: "/chairman/:conferenceId/schedule",
+    AFFILIATION: "/chairman/:conferenceId/affiliation",
+    COMMITTEE: "/chairman/:conferenceId/committee",
+    SETTINGS: "/chairman/:conferenceId/settings",
+  },
+  COMMITTEE: {
+    ROOT: "/committee/:conferenceId",
+    DASHBOARD: "/committee/:conferenceId/dashboard",
+    PAPERS: "/committee/:conferenceId/papers",
+    SCHEDULE: "/committee/:conferenceId/schedule",
+    AFFILIATION: "/committee/:conferenceId/affiliation",
+  },
+  PARTICIPANT: {
+    ROOT: "/participant/:conferenceId",
+    MY_PAPERS: "/participant/:conferenceId/my-papers",
+    SUBMIT_PAPER: "/participant/:conferenceId/submit-paper",
+    ASSIGNED_PAPERS: "/participant/:conferenceId/reviews",
+    REVIEWS: "/participant/:conferenceId/reviews/:paperId",
+    SCHEDULE: "/participant/:conferenceId/schedule",
+    AFFILIATION: "/participant/:conferenceId/affiliation",
   },
   INVITATION: "/invitation",
 } as const;

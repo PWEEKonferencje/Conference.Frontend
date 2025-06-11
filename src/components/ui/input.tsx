@@ -1,10 +1,24 @@
 import * as React from "react";
-
 import { cn } from "@/lib/utils";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+/**
+ * Input component with forwardRef to support ref usage.
+ * Ensures input is always controlled or always uncontrolled for its lifetime.
+ * If a `value` prop is provided but is undefined or null, it is replaced with an empty string.
+ * This prevents React warnings about switching between controlled and uncontrolled.
+ *
+ * @example
+ * <Input ref={myRef} value={value ?? ""} {...props} />
+ */
+const Input = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentPropsWithoutRef<"input">
+>(function Input({ className, type, value, defaultValue, ...props }, ref) {
+  // If value is provided (even as undefined/null), force controlled with empty string fallback
+  const isControlled = value !== undefined;
   return (
     <input
+      ref={ref}
       type={type}
       data-slot="input"
       className={cn(
@@ -14,8 +28,9 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         className,
       )}
       {...props}
+      {...(isControlled ? { value: value ?? "" } : { defaultValue })}
     />
   );
-}
+});
 
 export { Input };

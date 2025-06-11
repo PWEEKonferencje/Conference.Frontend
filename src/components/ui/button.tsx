@@ -35,25 +35,35 @@ const buttonVariants = cva(
   },
 );
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+/**
+ * Button component with support for forwarding refs.
+ * This resolves issues with refs on function components (e.g., with Radix Slot).
+ *
+ * @param props - Button props, including variant, size, and asChild for Slot support.
+ * @returns Button element or Slot-wrapped element with forwarded ref.
+ */
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<"button"> &
+    VariantProps<typeof buttonVariants> & {
+      asChild?: boolean;
+    }
+>(function Button(
+  { className, variant, size, asChild = false, ...props },
+  ref,
+) {
   const Comp = asChild ? Slot : "button";
-
   return (
     <Comp
+      ref={ref}
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
   );
-}
+});
 
+Button.displayName = "Button";
+
+// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };

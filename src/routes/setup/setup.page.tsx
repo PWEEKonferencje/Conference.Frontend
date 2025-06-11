@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "../routes.enum";
 import { useEffect, useState } from "react";
-import { ApiRoutes, useApiClient } from "@/api-client";
+import { useApiClient } from "@/api-client";
+
+interface SetupInfo {
+  isEmailProvided: boolean;
+  isOrcidProvided: boolean;
+  isAccountSetupFinished: boolean;
+}
 
 export default function SetupPage() {
   const navigate = useNavigate();
   const apiClient = useApiClient();
-  const [setupInfo, setSetupInfo] = useState<
-    | ApiRoutes["/api/Profile/setupinfo"]["get"]["responses"]["200"]["content"]["application/json"]
-    | null
-  >(null);
+  const [setupInfo, setSetupInfo] = useState<SetupInfo | null>(null);
 
   useEffect(() => {
     apiClient
@@ -19,7 +22,7 @@ export default function SetupPage() {
           throw new Error("Error");
         }
 
-        setSetupInfo(data);
+        setSetupInfo(data as SetupInfo);
       })
       .catch((err) => {
         throw err;

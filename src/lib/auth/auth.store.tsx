@@ -28,7 +28,7 @@ const AuthStoreContext = createContext<StoreApi<AuthStore> | undefined>(
   undefined,
 );
 
-const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
+export const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<StoreApi<AuthStore>>();
   storeRef.current ??= createStore<AuthStore>()(
     persist(
@@ -93,12 +93,11 @@ const AuthStoreProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-function useAuthStore<T>(selector: (state: AuthStore) => T) {
+// eslint-disable-next-line react-refresh/only-export-components
+export function useAuthStore<T>(selector: (state: AuthStore) => T) {
   const store = useContext(AuthStoreContext);
   if (!store) {
     throw new Error("Missing AuthStoreProvider");
   }
   return useStore(store, selector);
 }
-
-export { AuthStoreProvider, useAuthStore };
