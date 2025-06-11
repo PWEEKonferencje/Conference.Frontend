@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -98,9 +97,9 @@ function ConferenceCard({ conference }: { conference: Conference }) {
               ? "Active"
               : "Completed"}
         </Badge>
-        <Link href={`/demo/chairman`}>
+        <a href={`/demo/chairman`}>
           <Button variant="outline">View Details</Button>
-        </Link>
+        </a>
       </CardFooter>
     </Card>
   );

@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function Footer() {
   return (
     <footer className="border-t py-6 md:py-0">
@@ -8,24 +6,24 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} ConferenceApp. All rights reserved.
         </p>
         <div className="flex gap-6">
-          <Link
+          <a
             href="/terms"
             className="text-sm text-muted-foreground hover:text-foreground"
           >
             Terms
-          </Link>
-          <Link
+          </a>
+          <a
             href="/privacy"
             className="text-sm text-muted-foreground hover:text-foreground"
           >
             Privacy
-          </Link>
-          <Link
+          </a>
+          <a
             href="/contact"
             className="text-sm text-muted-foreground hover:text-foreground"
           >
             Contact
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

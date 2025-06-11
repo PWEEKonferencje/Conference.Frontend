@@ -73,7 +73,7 @@ export function CSVExportImport({
         const lines = csvData.split("\n");
         const headers = lines[0]?.split(",") ?? [];
 
-        const parsedData = [];
+        const parsedData: Record<string, string>[] = [];
 
         for (let i = 1; i < lines.length; i++) {
           if (!lines[i]?.trim()) continue;

@@ -72,14 +72,14 @@ function drawSubmissionsChart(
     const x = (index * 2 + 1) * barWidth;
     const barHeight = (value / maxValue) * (height - 60);
 
-    ctx.fillStyle = colors[index];
+    ctx.fillStyle = colors[index]!;
     ctx.fillRect(x, height - 30 - barHeight, barWidth, barHeight);
 
     // Draw label
     ctx.fillStyle = "#64748b";
     ctx.font = "12px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText(labels[index], x + barWidth / 2, height - 10);
+    ctx.fillText(labels[index]!, x + barWidth / 2, height - 10);
 
     // Draw value
     ctx.fillStyle = "#64748b";
@@ -141,7 +141,7 @@ function drawReviewsChart(
     ctx.fillStyle = "#64748b";
     ctx.font = "12px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText(labels[index], x, height - padding + 20);
+    ctx.fillText(labels[index]!, x, height - padding + 20);
 
     // Draw value
     ctx.fillStyle = "#64748b";
@@ -186,7 +186,7 @@ function drawTopicsChart(
   data.forEach((value, index) => {
     const sliceAngle = (value / total) * 2 * Math.PI;
 
-    ctx.fillStyle = colors[index];
+    ctx.fillStyle = colors[index]!;
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
